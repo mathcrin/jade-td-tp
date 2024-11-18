@@ -31,7 +31,7 @@ Voici les échanges de message sachant que le vendeur initie la négociation en 
   - si le prix est entre le prix proposé et le seuil, le vendeur baisse sa poposition initiale de x%
 
 Regardez les classes proposées, et lancez le `main` de la classe `Main`.
-
+ 
 **Question :** Modifier le code existant pour que l'utilisateur joue le rôle de l'acheteur; l'acheteur reste l'agent.
 - Ajoutez ensuite des fenêtres de dialogues (cf. les autres exemples).
 

@@ -44,7 +44,7 @@ Modifier le code de ce répoertoire; voici ci-dessous l'enchaînement des étape
   - refuse si l'offre dépasse un seuil (trop haut ou trop bas selon la position du négociateur),
   - émet une contre-offre et retourne un prix au partenaire.
 
-<!-- 
+<!-- remove space between -- and > in the arrows to render the diagram in plantuml
 ```
 @startuml negociation
 State Initiateur{
@@ -79,6 +79,6 @@ I:rejet-- >RTraiterRejet
 @enduml```
 -->
 
-<img src="negociation.png" alt="reseau v2" height="600"/>
+<img src="negociation.png" alt="reseau v2" height="883"/>
 
 ---

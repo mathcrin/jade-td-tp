@@ -1,17 +1,14 @@
-package td.negociationWindow;
+package td.negociationInteractionWindow2;
 
-import jade.core.Agent;
+import jade.core.AgentServicesTools;
 import jade.core.behaviours.Behaviour;
 import jade.core.behaviours.ParallelBehaviour;
 import jade.core.behaviours.ReceiverBehaviour;
-import jade.core.behaviours.WakerBehaviour;
 import jade.gui.AgentWindowed;
 import jade.gui.GuiEvent;
 import jade.gui.SimpleWindow4Agent;
 import jade.lang.acl.ACLMessage;
 import jade.lang.acl.MessageTemplate;
-
-import static java.lang.System.out;
 
 /**
  * Agent class to allow exchange of messages between an agent named ping, that initiates the 'dialog', and an agent
@@ -48,13 +45,16 @@ public class SellerAgent extends AgentWindowed {
     private Behaviour buildNegociationBehaviour() {
         //wait for a propose msg
         ParallelBehaviour parab = new ParallelBehaviour();
+
         var modele = MessageTemplate.MatchPerformative(ACLMessage.PROPOSE);
+
         parab.addSubBehaviour(new ReceiverBehaviour(this, -1, modele,true, (a,msg)->{
             nbTours[0]++;
             double receivedPrice = Double.parseDouble(msg.getContent());
             println("-> I've received %.2f\tround(%d/%d)".formatted(receivedPrice,nbTours[0], maxRounds));
-            var myAnswer = msg.createReply();
+            var myAnswer = new ACLMessage(ACLMessage.PROPOSE);
             if (receivedPrice>= this.proposedPrice*(1-coef)){
+                myAnswer = msg.createReply();
                 println("\t"+getLocalName() + " -> I accept!");
                 myAnswer.setPerformative(ACLMessage.ACCEPT_PROPOSAL);
                 println("~".repeat(30));
@@ -77,8 +77,10 @@ public class SellerAgent extends AgentWindowed {
             else{
                 this.proposedPrice = this.proposedPrice *(1-coef);
                 myAnswer.setPerformative(ACLMessage.PROPOSE);
-                myAnswer.setContent(String.valueOf(this.proposedPrice));
+                myAnswer.setContent(String.valueOf(this.proposedPrice)+";"+msg.getContent());
                 println(" -> I propose %.2f".formatted( this.proposedPrice));
+                var buyers = AgentServicesTools.searchAgents(this, "nego", "buyer");
+                myAnswer.addReceivers(buyers);
             }
             a.send(myAnswer);
         }));
@@ -123,7 +125,8 @@ public class SellerAgent extends AgentWindowed {
             And I will not go below %.2f""".formatted(maxRounds, proposedPrice, threshold ));
         println("~".repeat(20));
         var msg = new ACLMessage(ACLMessage.PROPOSE);
-        msg.addReceiver("buyer");
+        var buyers = AgentServicesTools.searchAgents(this, "nego", "buyer");
+        msg.addReceivers(buyers);
         msg.setContent(String.valueOf(proposedPrice));
         this.send(msg);
         println("-> I proposed %.2f".formatted(proposedPrice));
@@ -139,7 +142,6 @@ public class SellerAgent extends AgentWindowed {
             doDelete();
         }
     }
-
     /**I inform the user when I leave the platform*/
     @Override
     protected void takeDown() {

@@ -33,7 +33,7 @@ Sim_3 ->> TopicServer: registerTo 'BAC'channel
 Sim_4 ->> TopicServer: registerTo 'BAC'channel
 Sim_5 ->> TopicServer: registerTo 'BAC'channel
 TopicServer <- BroadcasterAgent : "Hello !" to 'BAC' channel
-Sim_1 <- TopicServer: "Hello !"
+Sim_1 -> TopicServer: "Hello !"
 Sim_2 <- TopicServer: "Hello !"
 Sim_3 <- TopicServer: "Hello !"
 Sim_4 <- TopicServer: "Hello !"
