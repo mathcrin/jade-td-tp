@@ -34,7 +34,7 @@ d'accord, de rejet, de nb de tours dépassé).
     - le comportement prend fin en cas d'accord, de rejet, ou au bout de nb cycles
 
 ---
-**Créez des interfaces permettant à des utilisateurs d'interagir **
+**Créez des interfaces permettant à des utilisateurs d'interagir**
 
 Ces interfaces permettent de spécifier les prix de base, le taux d'évolution du prix et le nb de tours maximum acceptable.
 
