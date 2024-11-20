@@ -30,5 +30,10 @@ public class ListenerAgent extends AgentWindowed {
 
     }
 
+    //fermer la fenetre lorsque l'agent est arrete
+    protected void takeDown() {
+        window.dispose();
+    }
+
 
 }

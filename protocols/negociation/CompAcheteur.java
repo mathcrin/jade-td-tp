@@ -10,7 +10,7 @@ public class CompAcheteur extends Behaviour {
     boolean accord;
     boolean rejet;
     double offreAutre, offrePrecedente, offre;
-    double epsilon = 0.1;
+    double epsilon = 0.05;
     Negociateur monAgent;
     MessageTemplate modele;
 
@@ -19,7 +19,6 @@ public class CompAcheteur extends Behaviour {
         this.monAgent = monAgent;
         this.modele = modele;
         monAgent.seuil = 110;
-        monAgent.prixSouhaite = 60;
     }
 
     @Override

@@ -80,7 +80,7 @@ public class AgentRequestSender extends AgentWindowed {
                 println("~".repeat(40));
                 StringBuilder sb = new StringBuilder("ok! I received all the responses... " +
                         "To resume: \n");
-                if(responses!=null && responses.size()>0)
+                if(responses!=null && !responses.isEmpty())
                     for (ACLMessage msg : responses) {
                         sb.append("\t-from ").append(msg.getSender().getLocalName()).append(" : ").append(msg.getContent()).append("\n");
                     }

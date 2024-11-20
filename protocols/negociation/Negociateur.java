@@ -23,7 +23,7 @@ import static java.lang.System.out;
 public class Negociateur extends AgentWindowed {
 
     double seuil;
-    double prixSouhaite = 100;
+    double prixSouhaite = 1000;
     /**
      * Initialisation de l'agent
      */
@@ -37,6 +37,7 @@ public class Negociateur extends AgentWindowed {
         if (getLocalName().equals("vendeur")) {
             window.setBackgroundTextColor(Color.lightGray);
             println("Cliquez pour lancer la négociation...");
+            prixSouhaite = 100;
 
             var modele =  MessageTemplate.MatchConversationId("MARCHE");
             // ajout d'un comportement à 30 itérations qui attend un msg contenant la balle et la retourne à l'envoyeur après 300ms
@@ -45,6 +46,8 @@ public class Negociateur extends AgentWindowed {
 
         if (getLocalName().equals("acheteur")) {
             var modele =  MessageTemplate.MatchConversationId("MARCHE");
+
+            prixSouhaite = 60;
             // ajout d'un comportement à 30 itérations qui attend un msg contenant la balle et la retourne à l'envoyeur après 300ms
             addBehaviour(new CompAcheteur(this, modele));
         }
@@ -87,7 +90,7 @@ public class Negociateur extends AgentWindowed {
         // demander la fenetre de controle
         prop.setProperty(Profile.GUI, "true");
         // nommer les agents
-        prop.setProperty(Profile.AGENTS, "acheteur:protocoles.negociation.Negociateur;vendeur:protocoles.negociation" +
+        prop.setProperty(Profile.AGENTS, "acheteur:protocols.negociation.Negociateur;vendeur:protocols.negociation" +
                 ".Negociateur");
         // creer le profile pour le conteneur principal
         ProfileImpl profMain = new ProfileImpl(prop);

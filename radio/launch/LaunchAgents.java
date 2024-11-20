@@ -17,7 +17,7 @@ public class LaunchAgents {
         prop.setProperty(Profile.SERVICES, "jade.core.messaging.TopicManagementService;jade.core.event.NotificationService");
         // -- add the agents
         StringBuilder sb = new StringBuilder("a:radio.agents.BroadcasterAgent;");
-        for (int i = 1; i < 10; i++)
+        for (int i = 1; i < 100; i++)
             sb.append("sim_").append(i).append(":radio.agents.ListenerAgent;");
         prop.setProperty(Profile.AGENTS, sb.toString());
         // create the jade profile

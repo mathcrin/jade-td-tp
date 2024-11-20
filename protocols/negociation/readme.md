@@ -34,9 +34,14 @@ d'accord, de rejet, de nb de tours dépassé).
     - le comportement prend fin en cas d'accord, de rejet, ou au bout de nb cycles
 
 ---
+**Créez des interfaces permettant à des utilisateurs d'interagir **
+
+Ces interfaces permettent de spécifier les prix de base, le taux d'évolution du prix et le nb de tours maximum acceptable.
+
+---
 **Créez un procotole en se basant sur les automates (FSM)**
 
-Modifier le code de ce répoertoire; voici ci-dessous l'enchaînement des étapes.
+Modifier le code de ce répertoire; voici ci-dessous l'enchaînement des étapes.
 - L'initiateur propose un prix,
 - Le prix proposé devient une offre pour le destinataire du message
 - Ce destinataire : 

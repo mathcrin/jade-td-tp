@@ -25,7 +25,7 @@ public class IncomingAgent extends AgentWindowed {
         AgentServicesTools.register(this, "anyTypeOfService", "anyNameOfService");
 
         //regisration to the service
-        addBehaviour(new WakerBehaviour(this, (long)(Math.random()*10000d),
+        addBehaviour(new WakerBehaviour(this, (long)(Math.random()*10000d) + 10000,
                 a->AgentServicesTools.register(a, "traveller", "quiet")));
 
 
