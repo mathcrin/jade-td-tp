@@ -36,7 +36,10 @@ d'accord, de rejet, de nb de tours dépassé).
 ---
 **Créez des interfaces permettant à des utilisateurs d'interagir**
 
-Ces interfaces permettent de spécifier les prix de base, le taux d'évolution du prix et le nb de tours maximum acceptable.
+- Optimiser le code pour accepter et ne pas proposer
+  - pour l'acheteur : un prix > au prix proposé par le vendeur.
+  - pour le vendeur : un prix < au prix proposé par l'acheteur.
+- Ces interfaces permettent de spécifier les prix de base, le taux d'évolution du prix et le nb de tours maximum acceptable.
 
 ---
 **Créez un procotole en se basant sur les automates (FSM)**
