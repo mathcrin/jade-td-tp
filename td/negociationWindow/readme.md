@@ -4,6 +4,9 @@
  
 ---
 
+Sur base du code sur le [PingPong](https://github.com/EmmanuelADAM/jade/blob/master/pingPong/), deux agents 
+vendeur et acheteur négocient autour d'un prix.
+
 Définissez les échanges de message sachant que le vendeur initie la négociation en proposant un prix.
  - Le vendeur dispose : 
    - d'un prix qu'il propose
