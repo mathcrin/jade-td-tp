@@ -33,13 +33,6 @@ d'accord, de rejet, de nb de tours dépassé).
         - sinon une nouvelle offre est faite, un peu moins élevée que la précédente
     - le comportement prend fin en cas d'accord, de rejet, ou au bout de nb cycles
 
----
-**Créez des interfaces permettant à des utilisateurs d'interagir**
-
-- Optimiser le code pour accepter et ne pas proposer
-  - pour l'acheteur : un prix > au prix proposé par le vendeur.
-  - pour le vendeur : un prix < au prix proposé par l'acheteur.
-- Ces interfaces permettent de spécifier les prix de base, le taux d'évolution du prix et le nb de tours maximum acceptable.
 
 ---
 **Créez un procotole en se basant sur les automates (FSM)**

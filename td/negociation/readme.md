@@ -10,12 +10,12 @@ vendeur et acheteur négocient autour d'un prix.
 Voici les échanges de message sachant que le vendeur initie la négociation en proposant un prix.
  - Le vendeur dispose : 
    - d'un prix qu'il propose
-   - d'une seuil sous lequel il met fin à la négociation
+   - d'un seuil sous lequel il met fin à la négociation
    - d'un nombre de tours avant de mettre fin à la négociation
 
  - L'acheteur dispose :
    - d'un prix qu'il propose
-   - d'une seuil au dessus lequel il met fin à la négociation
+   - d'un seuil au-dessus lequel il met fin à la négociation
    - d'un nombre de tours avant de mettre fin à la négociation
 
  - pour l'acheteur : 
@@ -34,6 +34,7 @@ Regardez les classes proposées, et lancez le `main` de la classe `Main`.
  
 **Question :** Modifier le code existant pour que l'utilisateur joue le rôle de l'acheteur; l'acheteur reste l'agent.
 - Ajoutez ensuite des fenêtres de dialogues (cf. les autres exemples).
+
 
 ![diagramme d'états du principe de négociation](negociation.png)
 ---
