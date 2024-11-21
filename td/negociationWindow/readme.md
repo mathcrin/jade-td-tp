@@ -22,21 +22,24 @@ Définissez les échanges de message sachant que le vendeur initie la négociati
    - si le nb de tours dépasse le nb max, il répond avec un rejet ;
    - si le prix reçu est au-dessus du seuil haut, il répond avec un rejet ;
    - si le prix reçu semblable au prix proposé, il répond avec une confirmation ;
-   - si le prix est entre le prix proposé et le seuil, l'acheteur augmente sa poposition initiale de x%.
+   - si le prix est entre le prix proposé et le seuil, l'acheteur augmente sa proposition initiale de x%.
 
 - pour le vendeur :
   - si le nb de tours dépasse le nb max, il répond avec un rejet ;
   - si le prix reçu est sous le seuil bas, il répond avec un rejet ;
   - si le prix reçu semblable au prix proposé, il répond avec une confirmation ;
-  - si le prix est entre le prix proposé et le seuil, le vendeur baisse sa poposition initiale de x%.
+  - si le prix est entre le prix proposé et le seuil, le vendeur baisse sa proposition initiale de x%.
 
 Regardez les classes proposées, et lancez le `main` de la classe `Main`.
 
 **Question 1:** l'acheteur est un humain, modifiez la fenêtre du Buyer pour pouvoir saisir et proposer un prix. -1 arrêtera la négociation.
-    - cf. dans [helloWorldService](https://github.com/EmmanuelADAM/jade/tree/english/helloWorldService) comment créer une fenêtre et la llier à son agent.
+- cf. dans [helloWorldService](https://github.com/EmmanuelADAM/jade/tree/english/helloWorldService) comment créer une fenêtre et la lier à son agent.
 
 **Question 2:** le vendeur doit être paramétrable (prix proposé, prix min, nb de cycles).
 
+**Question 3:** les pourcentages $\epsilon$ pour la diminution et l'augmentation du prix sont calculés en fonction du prix proposé initialement, du prix seuil et du nombre de cycles autorisés.
+- ex. prix de base = 100, prix max = 200, nb de cycles = 10, alors $\epsilon$ = 8% : 
+  - 100, 108, 116, 125, 134, 143, 153, 163, 174, 185, 197
 
 
 
