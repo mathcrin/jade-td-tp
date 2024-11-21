@@ -32,10 +32,14 @@ Définissez les échanges de message sachant que le vendeur initie la négociati
 
 Regardez les classes proposées, et lancez le `main` de la classe `Main`.
 
-**Question 1:** l'acheteur est un humain, modifiez la fenêtre du Buyer pour pouvoir saisir et proposer un prix. -1 arrêtera la négociation.
-- cf. dans [helloWorldService](https://github.com/EmmanuelADAM/jade/tree/english/helloWorldService) comment créer une fenêtre et la lier à son agent.
+**Question 1:** 
+- L'acheteur est un humain, modifiez la fenêtre du Buyer pour pouvoir saisir et proposer un prix. -1 arrêtera la négociation.
+  - cf. dans [negociationInteractionWindow](https://github.com/EmmanuelADAM/jade/tree/english/td/negociationInteractionWindow) comment créer une fenêtre et la lier à son agent.
+  - Il suffit alors de reprendre les classes `BuyerAgent` et la classe  `BuyerGui4Agent`.
 
-**Question 2:** le vendeur doit être paramétrable (prix proposé, prix min, nb de cycles).
+**Question 2:** 
+- Le vendeur doit être paramétrable (prix proposé, prix min, nb de cycles).
+  - il faut alors créer une fenêtre spécifiquement pour le vendeur et la relier à l'agent.
 
 **Question 3:** les pourcentages $\epsilon$ pour la diminution et l'augmentation du prix sont calculés en fonction du prix proposé initialement, du prix seuil et du nombre de cycles autorisés.
 - ex. prix de base = 100, prix max = 200, nb de cycles = 10, alors $\epsilon$ = 8% : 
