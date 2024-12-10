@@ -33,7 +33,7 @@ _ Java >= 17 is required._
 - Mariages stables : 
   - Chaque agent transmet ses caractéristiques aux autres.  
   - Le but est de former des couples stables.
-  - Chaque agent émet une préférence sur chaque autre (basé sur la longueur moyenne du petit doigt, écartement des yeux; pour l'instant on peut, il n'y a pas de petitdoigtophobie).
+  - Chaque agent émet une préférence sur chaque autre (basé sur la longueur moyenne du petit doigt; pour l'instant on peut discriminer sur ce point, il n'y a pas de petitdoigtophobie).
   - Solution centralisée : un agent "matrimonial" récupère les préférences des agents et applique l'algo de mariage stable classique : 
   1. Tous les agents sont célibataires
   2. Tant Que : il existe un célibataire c qui peut se proposer à un partenaire p (sans harcèlement, on ne peut se proposer 2x à un même agent) 
