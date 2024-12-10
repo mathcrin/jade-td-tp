@@ -35,14 +35,15 @@ _ Java >= 17 is required._
   - Le but est de former des couples stables.
   - Chaque agent émet une préférence sur chaque autre (basé sur la longueur moyenne du petit doigt; pour l'instant on peut discriminer sur ce point, il n'y a pas de petitdoigtophobie).
   - Solution centralisée : un agent "matrimonial" récupère les préférences des agents et applique l'algo de mariage stable classique : 
-  1. Tous les agents sont célibataires
-  2. Tant Que : il existe un célibataire c qui peut se proposer à un partenaire p (sans harcèlement, on ne peut se proposer 2x à un même agent) 
-     3. Si p est célibataire
-     4. Alors (c, p) forment un couple
-     5. Sinon un couple (c', p) existe 
-        6. Si p préfère c à c' Alors 
-           7. (c, p) forment un couple
-           8. c' devient célibataire 
-        9. Sinon (c', p) restent en couple
-  3. retourner aux agents les couples auxquels ils sont affectés.
-
+```  
+Tous les agents sont célibataires
+Tant Que : il existe un célibataire c qui peut se proposer à un partenaire p (sans harcèlement, on ne peut se proposer 2x à un même agent) 
+    Si p est célibataire Alors (c, p) forment un couple
+    Sinon 
+        un couple (c', p) existe 
+        Si p préfère c à c' Alors 
+            (c, p) forment un couple
+            c' devient célibataire 
+        Sinon (c', p) restent en couple
+Communiquer aux agents les couples auxquels ils sont affectés.
+```
