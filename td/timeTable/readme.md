@@ -1,4 +1,4 @@
-# Jade : TD2 - Gestion d'un Emploi Du Temps 
+# Jade :  Gestion d'un Emploi Du Temps 
 *(benchmark asa)*
 
 TP de résolution de problèmes de satisfaction de contraintes avec agents.
