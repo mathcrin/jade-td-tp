@@ -14,11 +14,12 @@ Selon le point de vue (enseignant, étudiant, gestionnaire de salle), le problè
 - Trois enseignants ($e_1$, $e_2$ et $e_3$) doivent proposer chacun deux enseignements de deux heures, répartis sur deux jours ($j_1$ et $j_2$), à trois groupes d'étudiants ($g_1$, $g_2$ et $g_3$).
 - Trois salles ($s_1$, $s_2$ et $s_3$) doivent accueillir chacune deux enseignements de deux heures, répartis sur deux jours ($j_1$ et $j_2$), avec un enseignant ($e_1$, $e_2$ ou $e_3$).
 
-**Crenaux horaires** : le jour $j_1$ et le jour $j_2$ sont deux jours ouvrables de la semaine, de 8h à 18h, avec une pause de deux heures entre 12h et 14h.
+**Crenaux horaires** : le jour $j_1$ et le jour $j_2$ sont deux jours ouvrables de la semaine, de 8h à 18h, avec une pause de deux heures entre 12h et 14h. Pour simplifier, les créneaux sont limités à 8h-10h, 10h-12h, 14h-16h, 16h-18h.
 
 **Contraintes** :
 Il existe des contraintes supplémentaires :
-- Les enseignants ont des indisponibilités pour certains créneaux. les contraintes secondaires (2) peuvent être non respectée s'il n'y a pas d'autres solutions :
+- Les enseignants ont des indisponibilités pour certains créneaux. 
+Les contraintes secondaires (2) peuvent être non respectées s'il n'y a pas d'autre solution :
   - $e_1$ ne peut enseigner : (1) le jour $j_1$ de 16h à 18h ; (2) le jour $j_2$ de 14h à 16h. 
   - $e_2$ ne peut enseigner : (1) le jour $j_2$ de 10h à 12h ; (2) le jour $j_1$ de 16h à 18h. 
   - $e_3$ ne peut enseigner : (1) le jour $j_1$ de 14h à 16h ; (2) le jour $j_2$ de 8h à 10h.
@@ -37,14 +38,14 @@ Il existe des contraintes supplémentaires :
 **Approche du problème.**
 
 Plusieurs approches sont possibles.
-Par exemple,  
-Si p1 et p2 sont les poids associés aux respects des contraintes sur les jours (avec $p1 + p2 = 1$ et $p1 > p2$), 
-le degré de satisfaction d’un enseignant e est défini par la fonction utilité :
+Par exemple : 
+- Si $p_1$ et $p_2$ sont les poids associés aux respects des contraintes sur les jours (avec $p_1 + p_2 = 1$ et $p_1 > p_2$), 
+- le degré de satisfaction d’un enseignant $e_i$ est défini par la fonction utilité :
+$u_{e_i}(agenda) = (p_1 \times ok_{contrainte_1} + p_2 \times ok_{contrainte_2})$ avec $ok_{contrainte_i} =$ 0 ou 1 si la contrainte (i) est respectée ou non.
+- Attention, ceci ne note que le point de vue de $e_i$, qui ne regarde pas les contraintes des indisponibilités des salles.
 
-$u(e) = (p_1 \times ok_{contrainte_1} + p2 \times ok_{contrainte_2})$ avec $ok_{contrainte_i} =$ 0 ou 1 si la contrainte (i) est respectée ou non.
-
-Ainsi pour un enseignant, la solution la plus utile est celle qui maximise la fonction utilité. Il peut en exister plusieurs pour lui.
-MAis il se peut qu'il n'existe aucune solution qui maximise la fonction d'utilité de chaque enseignant, salles, groupes, ...
+Pour un enseignant, il peut exister plusieurs solutions qui maximisent sa fonction utilité. Mais il se peut que cette valeur soit faible.
+Et il se peut qu'il n'existe aucune solution qui maximise la fonction d'utilité de chaque enseignant, salle, groupe, ...
 
 
 ## Agentification 
