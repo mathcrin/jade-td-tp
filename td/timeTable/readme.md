@@ -49,8 +49,9 @@ MAis il se peut qu'il n'existe aucune solution qui maximise la fonction d'utilit
 
 ## Agentification 
   - Agentifiez le problème en définissant les voyelles AEIO.
+    - il est possible de définir des agents pour les enseignants, les groupes, les salles, les créneaux, pour la coordination des enseignants, des salles, ...
   - Plus précisément, définissez les agents, leurs rôles, leurs comportements, leurs interactions.
-    - Quel(s) mécanisme(s) de résolution utiliserez vous ? (vote, négociation, adaptation )
+    - Quel(s) mécanisme(s) de résolution utiliserez-vous ? (vote, négociation, adaptation, place de marché, ...)
 
 ## Spécification
   - Utilisez de préférence PlantUML pour générer les diagrammes de classes, d'états, d'acitité et  de séquence
