@@ -9,12 +9,12 @@ Il met en jeu : enseignants, groupes d'étudiants et des créneaux horaires.
 
 ---
 ### Enoncé du problème A.
-Selon le point du vue (enseignant, étudiant, gestionnaire de salle), le problème peut être défini ainsi :
+Selon le point de vue (enseignant, étudiant, gestionnaire de salle), le problème peut être défini ainsi :
 - Trois groupes d'étudiants ($g_1$, $g_2$ et $g_3$) doivent suivre chacun deux enseignements de deux heures, répartis sur deux jours ($j_1$ et $j_2$), avec un enseignant ($e_1$, $e_2$ ou $e_3$).
 - Trois enseignants ($e_1$, $e_2$ et $e_3$) doivent proposer chacun deux enseignements de deux heures, répartis sur deux jours ($j_1$ et $j_2$), à trois groupes d'étudiants ($g_1$, $g_2$ et $g_3$).
 - Trois salles ($s_1$, $s_2$ et $s_3$) doivent accueillir chacune deux enseignements de deux heures, répartis sur deux jours ($j_1$ et $j_2$), avec un enseignant ($e_1$, $e_2$ ou $e_3$).
 
-**Crenaux horaires** : le jours $j_1$ et le jour $j_2$ sont deux jours ouvrables de la semaine, de 8h à 18h, avec une pause de deux heures entre 12h et 14h.
+**Crenaux horaires** : le jour $j_1$ et le jour $j_2$ sont deux jours ouvrables de la semaine, de 8h à 18h, avec une pause de deux heures entre 12h et 14h.
 
 **Contraintes** :
 Il existe des contraintes supplémentaires :
@@ -54,7 +54,7 @@ MAis il se peut qu'il n'existe aucune solution qui maximise la fonction d'utilit
     - Quel(s) mécanisme(s) de résolution utiliserez-vous ? (vote, négociation, adaptation, place de marché, ...)
 
 ## Spécification
-  - Utilisez de préférence PlantUML pour générer les diagrammes de classes, d'états, d'acitité et  de séquence
+  - Utilisez de préférence PlantUML pour générer les diagrammes de classes, d'états, d'activité et de séquence
   - Précisez les types comportements permettant l'implémentation des rôles que vous avez décrits. Vous ne donnerez que leurs noms et types (simples, cycliques, ...), leurs fonctionnements sont à décrire en texte simple.
   - Donnez les diagrammes de dialogue JADE entre les agents pour la résolution du problème de l'EDT en précisant les comportements impliqués dans les échanges.
 
