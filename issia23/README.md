@@ -27,11 +27,16 @@ region, and finally to the distributors.
 
 We can add these specification for a simple scenario : 
 - some type of products (P1, P2, ...)
-  - some instances of products (p11, p12, p31, ...)
-  - a product have from 1 to 4 removable/fixable elements, we name them el1, el2,el3,el4.
-- a breakdown 
+  - Cafetiere : 3 parts, approx. 40€,
+  - LaveLinge : 3 parts, approx. 200€,
+  - SourisOrdi : 3 parts, approx. 40€,
+  - Aspirateur : 3 parts, approx. 100€,
+  - LaveVaisselle : 4 parts, approx. 200€,
+- some instances of products (Cafetiere10 (a Cafetiere with a price+10%, LaveVaisselle-30 a LaveVaisselle with a price - 30%, ...)
+- a product have from 1 to 4 removable/fixable elements, we name them Cafetiere10-1, Cafetiere10-2, ....
+- a breakdown :
   - is focused on 1 elt.
-  - a breakdown can be very light (0), easy(1), average (2), difficult(3), definitive (4)
+  - can be very light (0), easy(1), average (2), difficult(3), definitive (4)
     - this level of pb is detected during the reparation  
 - **a user** has a skill for repairing, this skill can be of a level: 
   - 0 (unable to repair by itself and understand), 
@@ -77,3 +82,7 @@ We add a second criteria, the time:
 - flexible time for receiving a elt from the spare stores, a product from the distributors.
 
 ---
+**Code**
+- The proposed code is working. You can launch it via the class launch.Launch
+- User receive products, repairCoffeAgents and PartstoreAgents receive parts (more for SparestoreAgents), distributors receive product
+- A user starts a call for proposal to RepairCoffeeAgents. This CFP does nothing, it is just an example.

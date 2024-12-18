@@ -9,7 +9,7 @@ public enum ProductType implements Serializable {
     LaveLinge( 3,  200d),
     SourisOrdi( 2,  40d),
     Aspirateur( 3,  100d),
-    LaveVaisselle( 2,  200d);
+    LaveVaisselle( 4,  200d);
 
     public double getStandardPrice() {
         return standardPrice;
