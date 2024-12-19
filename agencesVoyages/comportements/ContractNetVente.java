@@ -106,9 +106,15 @@ public class ContractNetVente extends ContractNetResponder {
 
     /**get in the catalog the journey corresponding to j and remove one place*/
     private void removeTicket(Journey j) {
-        ArrayList<Journey> list = catalog.getJourneysFrom(j.getStart());
-        list.stream().filter(journey -> (journey.getStop().equals(j.getStop()) && journey.getDepartureDate() == j.getDepartureDate()))
-                .forEach(journey -> journey.setPlaces(journey.getPlaces() - 1));
+        catalog.removeIf(journey -> {
+            if (journey.getStart().equals(j.getStart()) && journey.getStop().equals(j.getStop()) && journey.getDepartureDate() == j.getDepartureDate()) {
+                if (journey.getPlaces() > 0) {
+                    journey.setPlaces(journey.getPlaces() - 1);
+                    return journey.getPlaces() == 0;
+                }
+            }
+            return false;
+        });
     }
 
     /**

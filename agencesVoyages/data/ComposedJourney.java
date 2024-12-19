@@ -80,6 +80,7 @@ public class ComposedJourney implements Serializable {
      * responsible of the composed journey
      */
     private AID proposer;
+
     public ComposedJourney() {
         journeys = new ArrayList<>();
     }
@@ -253,5 +254,18 @@ public class ComposedJourney implements Serializable {
      */
     public List<Journey> getJourneys() {
         return journeys;
+    }
+
+    public boolean isImpactedBy(String impactedRoute) {
+        for (Journey j : journeys) {
+            if (j.getRoute().equals(impactedRoute.toUpperCase())) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public String getPreference() {
+        return journeys.get(0).getMeans(); // TODO : vérifier si means est la préférence
     }
 }

@@ -68,6 +68,9 @@ public class AgenceAgent extends GuiAgent {
         addBehaviour(new ReceiverBehaviour(this, -1, MessageTemplate.MatchTopic(topic), true, (a, m)->{
                     println("Message recu sur le topic " + topic.getLocalName() + ". Contenu " + m.getContent()
                             + " emis par :  " + m.getSender().getLocalName());
+                    if(topic.getLocalName().equals("TRAFFIC NEWS")){
+                        handleAlert(m.getContent());
+                    }
                 }));
 
         //FIN REGLAGE ECOUTE DE LA RADIO
@@ -132,12 +135,15 @@ public class AgenceAgent extends GuiAgent {
             int confort = Integer.parseInt(nextLine[7].trim());
             int nbRepetitions = (nextLine.length == 9) ? 0 : Integer.parseInt(nextLine[8].trim());
             int frequence = (nbRepetitions == 0) ? 0 : Integer.parseInt(nextLine[9].trim());
-            Journey firstJourney = new Journey(origine, destination, means, departureDate, duration, cost, co2, confort);
+            Journey firstJourney = new Journey(origine, destination, means, departureDate, duration, cost,
+                    co2, confort);
             firstJourney.setProposedBy(this.getLocalName());
-            int nbPlaces = switch (means) {
-                case "car" -> 3;
-                case "bus" -> 50;
-                case "train" -> 200;
+            int nbPlaces = switch (file) {
+                case "agencesVoyages/bus.csv" -> 50;
+                case "agencesVoyages/carAutre.csv" -> 3;
+                case "agencesVoyages/busAutre.csv" -> 50;
+                case "agencesVoyages/car.csv" -> 3;
+                case "agencesVoyages/train.csv" -> 200;
                 default -> 0;
             };
             firstJourney.setPlaces(nbPlaces);
@@ -172,9 +178,6 @@ public class AgenceAgent extends GuiAgent {
 
     /**remove in the catalog 1 place for the journey that corresponds to the journey j*/
 
-
-
-
     /**
      * display a msg on the window
      */
@@ -185,6 +188,11 @@ public class AgenceAgent extends GuiAgent {
     ///// GETTERS AND SETTERS
     public agencesVoyages.gui.AgenceGui getWindow() {
         return window;
+    }
+
+    private void handleAlert(String impactedRoute) {
+        //Retire les trajets impactes de la liste des trajets
+        catalog.removeIf(j -> j.getRoute().equals(impactedRoute.toUpperCase()));
     }
 
 

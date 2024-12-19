@@ -2,6 +2,7 @@ package agencesVoyages.agents;
 
 import agencesVoyages.comportements.ContractNetAchat;
 import agencesVoyages.data.ComposedJourney;
+import agencesVoyages.data.Journey;
 import agencesVoyages.data.JourneysList;
 import agencesVoyages.gui.TravellerGui;
 import jade.core.AID;
@@ -16,6 +17,7 @@ import jade.gui.GuiAgent;
 import jade.gui.GuiEvent;
 import jade.lang.acl.ACLMessage;
 import jade.lang.acl.MessageTemplate;
+import jade.lang.acl.UnreadableException;
 import jade.proto.SubscriptionInitiator;
 
 import java.awt.*;
@@ -81,8 +83,35 @@ public class TravellerAgent extends GuiAgent {
         addBehaviour(new ReceiverBehaviour(this, -1, MessageTemplate.MatchTopic(topic), true, (a, m)->{
             println("Message recu sur le topic " + topic.getLocalName() + ". Contenu " + m.getContent()
                     + " emis par :  " + m.getSender().getLocalName());
+            if(topic.getLocalName().equals("TRAFFIC NEWS")){
+                handleAlert(m.getContent());
+            }
         }));
 
+//        // Ecoute des messages contenant un ComposedJourney
+//        addBehaviour(new CyclicBehaviour() {
+//            @Override
+//            public void action() {
+//                ACLMessage msg = receive();
+//                if (msg != null) {
+//                    try {
+//                        ComposedJourney journey = (ComposedJourney) msg.getContentObject();
+//                        handleReceivedJourney(journey);
+//                    } catch (UnreadableException e) {
+//                        e.printStackTrace();
+//                    }
+//                } else {
+//                    block();
+//                }
+//            }
+//        });
+
+    }
+
+    private void handleReceivedJourney(ComposedJourney journey) {
+        println("ComposedJourney reçu: " + journey);
+        // Stocker le ComposedJourney reçu
+        myJourney = journey;
     }
 
 
@@ -90,7 +119,7 @@ public class TravellerAgent extends GuiAgent {
      * ecoute des evenement de type enregistrement en tant qu'agence aupres des pages jaunes
      */
     private void detectAgences() {
-        var model = AgentServicesTools.createAgentDescription("travel agency", "seller");
+        var model = AgentServicesTools.createAgentDescription("travel agency", "portail");
         vendeurs = new ArrayList<>();
 
         //souscription au service des pages jaunes pour recevoir une alerte en cas mouvement sur le service travel agency'seller
@@ -98,7 +127,7 @@ public class TravellerAgent extends GuiAgent {
             @Override
             public void onRegister(DFAgentDescription dfd) {
                 vendeurs.add(dfd.getName());
-                window.println(dfd.getName().getLocalName() + " s'est inscrit en tant qu'agence : " + model.getAllServices().get(0));
+                window.println(dfd.getName().getLocalName() + " s'est inscrit en tant que potail : " + model.getAllServices().get(0));
             }
 
             @Override
@@ -154,8 +183,14 @@ public class TravellerAgent extends GuiAgent {
                         journeys.sort(Comparator.comparingDouble(ComposedJourney::getCost));
                 default -> journeys.sort(Comparator.comparingDouble(ComposedJourney::getCost));
             }
-            myJourney = journeys.get(0);
-            println("I choose this journey : " + myJourney);
+            if (journeys.size() > 0) {
+                journeys.get(0).getJourneys().get(0).setPreference(preference);
+                myJourney = journeys.get(0);
+                println("Je choisi ce trajet : " + myJourney);
+            }else{
+                println("Pas de trajet trouvé");
+            }
+
         }
     }
 
@@ -201,6 +236,28 @@ public class TravellerAgent extends GuiAgent {
 
     public ComposedJourney getMyJourney() {
         return myJourney;
+    }
+
+    private void handleAlert(String impactedRoute) {
+        println("Alerte reçu: " + impactedRoute + ". Regarde si le trajet actuel est impacté.");
+        println("Trajet actuel: " + myJourney);
+        // Vérifier si le trajet actuel est impacté
+        if (myJourney != null && myJourney.isImpactedBy(impactedRoute)) {
+            println("Trajet actuel impacté.");
+            println("Modification du trajet actuel: ");
+            // Relancer une demande pour un nouveau trajet
+            String from = myJourney.getJourneys().get(0).getOrigine();
+            String to = myJourney.getJourneys().get(myJourney.getJourneys().size() - 1).getDestination();
+            int departure = myJourney.getJourneys().get(0).getDepartureDate();
+            String preference = myJourney.getJourneys().get(0).getPreference();
+
+            addBehaviour(new ContractNetAchat(this, new ACLMessage(ACLMessage.CFP),
+                    (String) from, (String) to,
+                    (Integer) departure, (String) preference));
+
+        } else {
+            println("Trajet actuel non impacté.");
+        }
     }
 
 }

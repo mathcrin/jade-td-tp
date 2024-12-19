@@ -23,6 +23,7 @@ public class Journey implements Cloneable, Serializable, Comparable<Journey> {
     private static final String COST = ", cost = ";
     private static final String PROPOSEDBY = ", proposed by ";
     private static final String PLACES = ", nb tickets = ";
+    private static final String PREFERENCE = ", preference = ";
     /**
      * origin
      */
@@ -35,6 +36,10 @@ public class Journey implements Cloneable, Serializable, Comparable<Journey> {
      * transport means
      */
     String means;
+    /**
+     * preference stocker en cas de nouvelle recherche
+     */
+    String preference = "cost";
     /**
      * duration of the journey, in minutes
      */
@@ -148,6 +153,14 @@ public class Journey implements Cloneable, Serializable, Comparable<Journey> {
         this.means = means;
     }
 
+    public String getPreference() {
+        return preference;
+    }
+
+    public void setPreference(String preference) {
+        this.preference = preference;
+    }
+
     public int getTime() {
         return duration;
     }
@@ -254,5 +267,17 @@ public class Journey implements Cloneable, Serializable, Comparable<Journey> {
     @Override
     public int compareTo(Journey o) {
         return (int) (cost - o.cost);
+    }
+
+    public String getOrigine() {
+        return start;
+    }
+
+    public String getDestination() {
+        return stop;
+    }
+
+    public Object getRoute() {
+        return start + "," + stop;
     }
 }
