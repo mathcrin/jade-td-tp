@@ -1,4 +1,4 @@
-# Jade : Agents
+# Jade : Agents Sujet du TP
 
 ## Agence de voyages
 
@@ -227,3 +227,178 @@ PlantUML associé si vous souhaitez uitiliser cet outil pour la création de dia
 
 ---
 
+# Rendu du TP : 
+Diaggrame de classe avec plant UML
+
+```plantuml:
+@startuml
+
+package agencesVoyages.agents {
+class AgenceAgent {
++ setup() : void
++ takeDown() : void
++ onGuiEvent(GuiEvent guiEvent) : void
++ fromCSV2Catalog(String file) : void
++ repeatJourney(int departureDate, int nbRepetitions, int frequence, Journey journey) : void
++ println(String msg) : void
++ getWindow() : AgenceGui
++ handleAlert(String impactedRoute) : void
+}
+
+    class PortailAgent {
+        + setup() : void
+        + takeDown() : void
+        + onGuiEvent(GuiEvent guiEvent) : void
+        + fromCSV2Catalog(String file) : void
+        + repeatJourney(int departureDate, int nbRepetitions, int frequence, Journey journey) : void
+        + println(String msg) : void
+        + getWindow() : PortailGui
+        + detectAgences() : void
+        + computeComposedJourney(String from, String to, int departure, String preference) : void
+        + sendJourneyToCustomer(ComposedJourney journey) : void
+        + setCustomer(AID customer) : void
+        + getMyJourney() : ComposedJourney
+    }
+
+    class AlertAgent {
+        + setup() : void
+        + takeDown() : void
+        + onGuiEvent(GuiEvent eventFromGui) : void
+        + println(String msg) : void
+    }
+
+    class TravellerAgent {
+        + setup() : void
+        + takeDown() : void
+        + onGuiEvent(GuiEvent eventFromGui) : void
+        + println(String msg) : void
+        + computeComposedJourney(String from, String to, int departure, String preference) : void
+        + getVendeurs() : List<AID>
+        + setCatalogs(JourneysList catalogs) : void
+        + getMyJourney() : ComposedJourney
+        + handleAlert(String impactedRoute) : void
+    }
+}
+
+package agencesVoyages.comportements {
+class ContractNetVente {
++ handleCfp(ACLMessage cfp) : ACLMessage
++ handleAcceptProposal(ACLMessage cfp, ACLMessage propose, ACLMessage accept) : ACLMessage
++ handleRejectProposal(ACLMessage cfp, ACLMessage propose, ACLMessage reject) : void
+}
+
+    class ContractNetVentePortail {
+        + handleCfp(ACLMessage cfp) : ACLMessage
+        + handleAcceptProposal(ACLMessage cfp, ACLMessage propose, ACLMessage accept) : ACLMessage
+        + handleRejectProposal(ACLMessage cfp, ACLMessage propose, ACLMessage reject) : void
+    }
+
+    class ContractNetAchat {
+        + handleRefuse(ACLMessage refuse) : void
+        + handleFailure(ACLMessage failure) : void
+        + handleAllResponses(List<ACLMessage> responses, List<ACLMessage> acceptances) : void
+        + handleInform(ACLMessage inform) : void
+    }
+
+    class ContractNetAchatPortail {
+        + handleRefuse(ACLMessage refuse) : void
+        + handleFailure(ACLMessage failure) : void
+        + handleAllResponses(List<ACLMessage> responses, List<ACLMessage> acceptances) : void
+        + handleInform(ACLMessage inform) : void
+    }
+}
+
+AgenceAgent --> PortailAgent : Communicates with
+PortailAgent --> TravellerAgent : Communicates with
+AlertAgent --> AgenceAgent : Sends alerts to
+AlertAgent --> TravellerAgent : Sends alerts to
+
+AgenceAgent --> ContractNetVente
+PortailAgent --> ContractNetVentePortail
+TravellerAgent --> ContractNetAchat
+PortailAgent --> ContractNetAchatPortail
+
+@enduml
+```
+![img.png](img.png)
+
+Diagramme de séquence pour la recherche classique de voyages
+
+```plantuml:
+@startuml
+actor "Voyageur" as V
+participant "AgentVoyageur" as AV
+participant "AgentAgence" as AA
+participant "ContractNetAchat" as CNA
+participant "ContractNetVente" as CNV
+
+V -> AV: Initier recherche
+AV -> CNA: Envoyer CFP (Appel d'Offres)
+CNA -> AA: Transférer CFP
+AA -> CNV: Traiter CFP
+CNV -> AA: Proposer voyages
+AA -> CNA: Envoyer proposition
+CNA -> AV: Recevoir proposition
+AV -> CNA: Accepter proposition
+CNA -> AA: Transférer acceptation
+AA -> CNV: Traiter acceptation
+CNV -> AA: Confirmer vente
+AA -> CNA: Envoyer confirmation
+CNA -> AV: Recevoir confirmation
+@enduml
+```
+
+![img_2.png](img_2.png)
+
+
+Diagramme de séquence pour la recherche via les agences "portails"
+
+```plantuml:
+@startuml
+actor "Voyageur" as V
+participant "AgentVoyageur" as AV
+participant "AgentPortail" as AP
+participant "AgentAgence" as AA
+participant "ContractNetAchatPortail" as CNAp
+participant "ContractNetVentePortail" as CNVp
+participant "ContractNetVente" as CNV
+
+V -> AV: Initier recherche
+AV -> CNAp: Envoyer CFP (Appel d'Offres)
+CNAp -> AP: Transférer CFP
+AP -> CNVp: Traiter CFP
+CNVp -> AP: Proposer voyages
+AP -> CNAp: Envoyer proposition
+CNAp -> AV: Recevoir proposition
+AV -> CNAp: Accepter proposition
+CNAp -> AP: Transférer acceptation
+AP -> CNVp: Traiter acceptation
+CNVp -> AP: Confirmer vente
+AP -> CNAp: Envoyer confirmation
+CNAp -> AV: Recevoir confirmation
+@enduml
+```
+![img_1.png](img_1.png)
+
+Diagramme d'états pour le mode d'enchère proposé
+
+```plantuml:
+@startuml
+[*] --> Initialisation
+Initialisation : Setup de l'agent
+Initialisation --> AttenteProposition : Attente de proposition
+
+AttenteProposition --> PropositionReçue : Proposition reçue
+PropositionReçue --> EvaluationProposition : Évaluation de la proposition
+
+EvaluationProposition --> PropositionAcceptée : Proposition acceptée
+EvaluationProposition --> PropositionRejetée : Proposition rejetée
+
+PropositionAcceptée --> ConfirmationVente : Confirmation de la vente
+PropositionRejetée --> AttenteProposition : Retour à l'attente de proposition
+
+ConfirmationVente --> [*] : Fin de l'enchère
+
+@enduml
+```
+![img_3.png](img_3.png)
